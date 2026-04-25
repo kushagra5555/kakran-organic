@@ -1,0 +1,2437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kakran Organic — Pure From Earth. Powerful For Life.</title>
+<meta name="description" content="Premium organic turmeric, sugarcane vinegar, and vermicompost from Kakran village. 100% chemical-free, farm-to-door organic products trusted by 10,000+ families across India.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Inter:wght@300;400;500;600;700&family=Lora:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+<style>
+/* === CSS CUSTOM PROPERTIES === */
+:root {
+  --gold: #E8A020;
+  --gold-hover: #D4920A;
+  --gold-light: rgba(232, 160, 32, 0.12);
+  --green: #2D5016;
+  --green-dark: #1B4332;
+  --green-light: #3A6B1E;
+  --cream: #FDF6EC;
+  --cream-dark: #F5EDDF;
+  --brown: #6B3A2A;
+  --brown-light: #8A5A48;
+  --dark: #1A1A1A;
+  --dark-card: #222222;
+  --white: #FFFFFF;
+  --amazon-orange: #FF9900;
+  --flipkart-blue: #2874F0;
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body: 'Inter', -apple-system, sans-serif;
+  --font-accent: 'Lora', Georgia, serif;
+  --section-pad: clamp(60px, 8vw, 120px);
+  --side-pad: clamp(20px, 5vw, 80px);
+  --card-radius: 20px;
+  --transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  --shadow-sm: 0 2px 8px rgba(107, 58, 42, 0.06);
+  --shadow-md: 0 8px 32px rgba(107, 58, 42, 0.1);
+  --shadow-lg: 0 16px 48px rgba(107, 58, 42, 0.14);
+  --shadow-gold: 0 8px 32px rgba(232, 160, 32, 0.25);
+}
+
+/* === RESET & BASE === */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; overflow-x: hidden; }
+body {
+  font-family: var(--font-body);
+  background: var(--cream);
+  color: var(--brown);
+  overflow-x: hidden;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+img { max-width: 100%; height: auto; display: block; }
+a { text-decoration: none; color: inherit; }
+button { cursor: pointer; border: none; font-family: var(--font-body); }
+h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 500; color: var(--brown); }
+
+/* === ENHANCED 3D SCROLL REVEAL === */
+.reveal {
+  opacity: 0;
+  transform: perspective(1000px) translateY(80px) rotateX(-15deg) scale(0.95);
+  transition: opacity 1s cubic-bezier(0.25, 1, 0.5, 1), transform 1s cubic-bezier(0.25, 1, 0.5, 1);
+  transform-style: preserve-3d;
+  will-change: opacity, transform;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: perspective(1000px) translateY(0) rotateX(0deg) scale(1);
+}
+
+/* === CUSTOM CURSOR & GOLDEN DUST === */
+.custom-cursor {
+  position: fixed;
+  top: 0; left: 0;
+  width: 24px; height: 24px;
+  border: 2px solid var(--gold);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 10000;
+  transform: translate(-50%, -50%);
+  transition: width 0.2s, height 0.2s, background-color 0.2s;
+  mix-blend-mode: difference;
+}
+.custom-cursor.hovering {
+  width: 45px; height: 45px;
+  background-color: rgba(232, 160, 32, 0.2);
+  border-color: var(--gold);
+}
+.cursor-dust {
+  position: fixed;
+  top: 0; left: 0;
+  width: 5px; height: 5px;
+  background: var(--gold);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 8px var(--gold);
+  will-change: transform, opacity;
+}
+
+@media (max-width: 768px) {
+  .custom-cursor, .cursor-dust { display: none !important; }
+  .reveal { transform: translateY(30px) rotateX(0deg) scale(1); }
+}
+
+/* ===================== */
+/* === STICKY NAVBAR === */
+/* ===================== */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--side-pad);
+  background: rgba(253, 246, 236, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(107, 58, 42, 0.08);
+  transition: background 0.3s, box-shadow 0.3s;
+}
+.navbar.scrolled {
+  background: rgba(253, 246, 236, 0.95);
+  box-shadow: 0 2px 20px rgba(107, 58, 42, 0.08);
+}
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  z-index: 1001;
+}
+.nav-logo-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: var(--green-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.nav-logo-icon svg { width: 22px; height: 22px; }
+.nav-brand {
+  font-family: var(--font-display);
+  font-size: clamp(16px, 2vw, 19px);
+  color: var(--green-dark);
+  font-weight: 600;
+  line-height: 1.2;
+}
+.nav-brand-sub {
+  font-family: var(--font-body);
+  font-size: 9px;
+  color: var(--gold);
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  display: block;
+  margin-top: 1px;
+}
+.nav-links {
+  display: flex;
+  gap: clamp(20px, 3vw, 40px);
+  align-items: center;
+}
+.nav-links a {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--brown-light);
+  letter-spacing: 0.3px;
+  transition: color var(--transition);
+  position: relative;
+}
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--gold);
+  border-radius: 1px;
+  transition: width var(--transition);
+}
+.nav-links a:hover { color: var(--green-dark); }
+.nav-links a:hover::after { width: 100%; }
+.nav-cta {
+  background: var(--gold);
+  color: var(--white);
+  border-radius: 28px;
+  padding: 10px 24px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  transition: all var(--transition);
+  box-shadow: var(--shadow-gold);
+}
+.nav-cta:hover {
+  background: var(--gold-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 12px 36px rgba(232, 160, 32, 0.35);
+}
+.nav-cta:focus-visible {
+  outline: 3px solid var(--gold);
+  outline-offset: 3px;
+}
+
+/* Hamburger */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  padding: 8px;
+  z-index: 1001;
+}
+.hamburger span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--brown);
+  border-radius: 2px;
+  transition: var(--transition);
+}
+.hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+.hamburger.active span:nth-child(2) { opacity: 0; }
+.hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+/* Mobile drawer */
+.mobile-drawer {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: min(320px, 85vw);
+  height: 100vh;
+  height: 100dvh;
+  background: var(--cream);
+  z-index: 999;
+  padding: 100px 32px 40px;
+  transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: -10px 0 40px rgba(0,0,0,0.15);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  overflow-y: auto;
+}
+.mobile-drawer.open { right: 0; }
+.mobile-drawer a {
+  font-family: var(--font-display);
+  font-size: 22px;
+  color: var(--brown);
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(107, 58, 42, 0.08);
+  transition: color var(--transition);
+}
+.mobile-drawer a:hover { color: var(--gold); }
+.mobile-drawer .drawer-cta {
+  margin-top: 20px;
+  background: var(--gold);
+  color: var(--white);
+  text-align: center;
+  padding: 16px;
+  border-radius: 14px;
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 600;
+}
+.drawer-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  z-index: 998;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+.drawer-overlay.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* =================== */
+/* === HERO SECTION === */
+/* =================== */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  padding: calc(72px + 40px) var(--side-pad) 60px;
+  overflow: hidden;
+}
+#hero-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+.hero-content {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(30px, 5vw, 80px);
+  align-items: center;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+.hero-left { max-width: 640px; }
+.hero-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(45, 80, 22, 0.08);
+  border: 1px solid rgba(45, 80, 22, 0.15);
+  border-radius: 32px;
+  padding: 8px 18px;
+  margin-bottom: 28px;
+}
+.hero-tag-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--green);
+  animation: pulse-dot 2s infinite;
+}
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.3); }
+}
+.hero-tag span {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--green);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+.hero h1 {
+  font-size: clamp(2.2rem, 5.5vw, 4.5rem);
+  line-height: 1.1;
+  color: var(--brown);
+  margin-bottom: 24px;
+  font-weight: 600;
+}
+.hero h1 .gold { color: var(--gold); font-style: italic; }
+.hero h1 .green { color: var(--green-dark); }
+.hero-word {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: wordReveal 0.6s forwards;
+}
+@keyframes wordReveal {
+  to { opacity: 1; transform: translateY(0); }
+}
+.hero-desc {
+  font-size: clamp(14px, 1.6vw, 17px);
+  color: var(--brown-light);
+  line-height: 1.9;
+  margin-bottom: 36px;
+  max-width: 500px;
+}
+.hero-buttons {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 48px;
+}
+.hero-btn-primary {
+  background: var(--gold);
+  color: var(--white);
+  border-radius: 32px;
+  padding: 16px 36px;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  transition: all var(--transition);
+  box-shadow: var(--shadow-gold);
+}
+.hero-btn-primary:hover {
+  background: var(--gold-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 14px 40px rgba(232, 160, 32, 0.4);
+}
+.hero-btn-secondary {
+  background: transparent;
+  color: var(--green-dark);
+  border: 2px solid var(--green-dark);
+  border-radius: 32px;
+  padding: 16px 36px;
+  font-size: 15px;
+  font-weight: 600;
+  transition: all var(--transition);
+}
+.hero-btn-secondary:hover {
+  background: var(--green-dark);
+  color: var(--cream);
+  transform: translateY(-2px);
+}
+.hero-stats {
+  display: flex;
+  gap: 0;
+}
+.hero-stat {
+  padding: 0 clamp(16px, 2.5vw, 32px);
+  border-right: 1px solid rgba(107, 58, 42, 0.15);
+}
+.hero-stat:first-child { padding-left: 0; }
+.hero-stat:last-child { border-right: none; }
+.hero-stat-num {
+  font-family: var(--font-display);
+  font-size: clamp(22px, 2.5vw, 30px);
+  color: var(--green-dark);
+  font-weight: 600;
+}
+.hero-stat-label {
+  font-size: 10px;
+  color: var(--brown-light);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-top: 2px;
+}
+
+/* Hero Right — Product Image */
+.hero-right {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 420px;
+}
+.hero-product-frame {
+  position: relative;
+  width: clamp(240px, 22vw, 320px);
+  height: clamp(300px, 28vw, 400px);
+  border-radius: 24px;
+  overflow: hidden;
+  border: 2px solid rgba(232, 160, 32, 0.2);
+  box-shadow: 0 20px 60px rgba(232, 160, 32, 0.2), 0 0 0 1px rgba(255,255,255,0.3) inset;
+  animation: heroFloat 6s ease-in-out infinite;
+  will-change: transform;
+}
+@keyframes heroFloat {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  33% { transform: translateY(-12px) rotate(1deg); }
+  66% { transform: translateY(-6px) rotate(-1deg); }
+}
+.hero-product-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Floating pills */
+.hero-pill {
+  position: absolute;
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(232, 160, 32, 0.12);
+  border-radius: 40px;
+  padding: 10px 16px 10px 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: var(--shadow-md);
+  animation: pillFloat 5s ease-in-out infinite;
+  will-change: transform;
+}
+.hero-pill:nth-child(2) { animation-delay: -1.5s; }
+.hero-pill:nth-child(3) { animation-delay: -3s; }
+.hero-pill:nth-child(4) { animation-delay: -4.2s; }
+@keyframes pillFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+.hero-pill-img {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+  border: 1px solid rgba(232, 160, 32, 0.15);
+}
+.hero-pill-img img { width: 100%; height: 100%; object-fit: cover; }
+.hero-pill-name { font-size: 12px; font-weight: 600; color: var(--brown); }
+.hero-pill-rating { font-size: 10px; color: var(--gold); }
+.hp-tl { top: 5%; left: -5%; }
+.hp-tr { top: 5%; right: -5%; }
+.hp-bl { bottom: 18%; left: -10%; }
+.hp-br { bottom: 18%; right: -10%; }
+.hero-trust-badge {
+  position: absolute;
+  bottom: 8%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--gold);
+  color: var(--white);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 8px 20px;
+  border-radius: 24px;
+  white-space: nowrap;
+  box-shadow: var(--shadow-gold);
+}
+
+/* === TRUST TICKER === */
+.ticker {
+  background: var(--green-dark);
+  padding: 14px 0;
+  overflow: hidden;
+  position: relative;
+  z-index: 2;
+}
+.ticker-track {
+  display: flex;
+  gap: 48px;
+  white-space: nowrap;
+  animation: tickerScroll 22s linear infinite;
+}
+.ticker-item {
+  font-size: 11px;
+  color: rgba(253, 246, 236, 0.75);
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-shrink: 0;
+}
+.ticker-sep {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--gold);
+  flex-shrink: 0;
+}
+@keyframes tickerScroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ========================= */
+/* === PRODUCT SHOWCASE ==== */
+/* ========================= */
+.products-section {
+  padding: var(--section-pad) var(--side-pad);
+  background: var(--cream);
+}
+.section-label {
+  font-size: 11px;
+  color: var(--gold);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.section-label::before {
+  content: '';
+  width: 24px;
+  height: 2px;
+  background: var(--gold);
+  border-radius: 1px;
+}
+.section-title {
+  font-size: clamp(28px, 3.5vw, 42px);
+  color: var(--brown);
+  margin-bottom: clamp(36px, 5vw, 56px);
+  line-height: 1.25;
+}
+.section-title em { color: var(--green-dark); font-style: italic; }
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(16px, 2vw, 24px);
+}
+.product-card {
+  background: var(--white);
+  border-radius: var(--card-radius);
+  border: 1px solid rgba(107, 58, 42, 0.08);
+  overflow: hidden;
+  transition: box-shadow var(--transition), transform var(--transition);
+  will-change: transform;
+  perspective: 1000px;
+}
+.product-card:hover {
+  box-shadow: var(--shadow-lg);
+}
+.product-card-inner {
+  transition: transform var(--transition);
+  transform-style: preserve-3d;
+  position: relative;
+}
+.pc-glare {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--card-radius);
+  background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.4) 0%, transparent 60%);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 10;
+  mix-blend-mode: overlay;
+  transition: opacity 0.3s;
+}
+.product-card:hover .pc-glare {
+  opacity: 1;
+}
+.pc-img-wrap {
+  position: relative;
+  height: clamp(180px, 18vw, 240px);
+  overflow: hidden;
+  aspect-ratio: 4/3;
+}
+.pc-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s var(--transition);
+}
+.product-card:hover .pc-img-wrap img { transform: scale(1.06); }
+.pc-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  padding: 5px 12px;
+  border-radius: 12px;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--white);
+}
+.pc-badge.amazon { background: var(--amazon-orange); }
+.pc-badge.flipkart { background: var(--flipkart-blue); }
+.pc-body {
+  padding: clamp(16px, 1.5vw, 22px);
+}
+.pc-name {
+  font-family: var(--font-display);
+  font-size: clamp(15px, 1.3vw, 17px);
+  color: var(--brown);
+  margin-bottom: 4px;
+  font-weight: 600;
+}
+.pc-subtitle {
+  font-size: 11px;
+  color: var(--gold);
+  letter-spacing: 0.5px;
+  margin-bottom: 10px;
+}
+.pc-desc {
+  font-size: 13px;
+  color: var(--brown-light);
+  line-height: 1.7;
+  margin-bottom: 16px;
+}
+.pc-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.pc-stars {
+  font-size: 13px;
+  color: var(--gold);
+  letter-spacing: 1px;
+}
+.pc-buy-btn {
+  padding: 10px 20px;
+  border-radius: 24px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--white);
+  letter-spacing: 0.3px;
+  transition: all var(--transition);
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.pc-buy-btn:hover { transform: translateY(-1px); }
+.pc-buy-btn:focus-visible { outline: 3px solid currentColor; outline-offset: 3px; }
+.pc-buy-btn.amazon { background: var(--amazon-orange); box-shadow: 0 4px 16px rgba(255, 153, 0, 0.3); }
+.pc-buy-btn.amazon:hover { background: #e68a00; box-shadow: 0 6px 20px rgba(255, 153, 0, 0.4); }
+.pc-buy-btn.flipkart { background: var(--flipkart-blue); box-shadow: 0 4px 16px rgba(40, 116, 240, 0.3); }
+.pc-buy-btn.flipkart:hover { background: #1a60d0; box-shadow: 0 6px 20px rgba(40, 116, 240, 0.4); }
+
+/* ========================= */
+/* === ORGANIC BENEFITS ==== */
+/* ========================= */
+.benefits-section {
+  padding: var(--section-pad) var(--side-pad);
+  background: var(--cream-dark);
+}
+.benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(16px, 2vw, 24px);
+}
+.benefit-card {
+  background: var(--white);
+  border-radius: var(--card-radius);
+  border: 1px solid rgba(107, 58, 42, 0.06);
+  padding: clamp(24px, 2.5vw, 32px);
+  border-top: 3px solid var(--green-dark);
+  transition: all var(--transition);
+}
+.benefit-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+.benefit-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
+  background: rgba(45, 80, 22, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 18px;
+}
+.benefit-icon svg { width: 24px; height: 24px; }
+.benefit-title {
+  font-family: var(--font-display);
+  font-size: 17px;
+  color: var(--brown);
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+.benefit-desc {
+  font-size: 13px;
+  color: var(--brown-light);
+  line-height: 1.75;
+}
+.benefit-counter {
+  font-family: var(--font-display);
+  font-size: 28px;
+  color: var(--green-dark);
+  font-weight: 700;
+  margin-top: 12px;
+}
+
+/* ========================= */
+/* === ORIGIN STORY ======== */
+/* ========================= */
+.story-section {
+  padding: var(--section-pad) var(--side-pad);
+  background: var(--cream);
+  position: relative;
+}
+.story-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(36px, 5vw, 80px);
+  align-items: center;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+.story-images {
+  position: relative;
+  min-height: 380px;
+}
+.story-img-big {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 65%;
+  height: 85%;
+  border-radius: 24px;
+  overflow: hidden;
+  border: 2px solid rgba(232, 160, 32, 0.12);
+  box-shadow: var(--shadow-md);
+}
+.story-img-big img { width: 100%; height: 100%; object-fit: cover; }
+.story-img-small {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 50%;
+  height: 55%;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 2px solid rgba(232, 160, 32, 0.12);
+  box-shadow: var(--shadow-md);
+}
+.story-img-small img { width: 100%; height: 100%; object-fit: cover; }
+.story-year-badge {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: var(--green-dark);
+  color: var(--cream);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 3;
+  box-shadow: 0 8px 24px rgba(27, 67, 50, 0.3);
+}
+.story-year-badge strong {
+  font-family: var(--font-display);
+  font-size: 20px;
+  display: block;
+}
+.story-year-badge span {
+  font-size: 9px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+.story-content h2 {
+  font-size: clamp(26px, 3vw, 38px);
+  line-height: 1.3;
+  margin-bottom: 20px;
+}
+.story-content h2 em { color: var(--green-dark); font-style: italic; }
+.story-content p {
+  font-size: 14px;
+  color: var(--brown-light);
+  line-height: 1.9;
+  margin-bottom: 16px;
+}
+.story-facts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-top: 28px;
+}
+.story-fact {
+  background: var(--cream-dark);
+  border-radius: 14px;
+  padding: 18px;
+  border: 1px solid rgba(107, 58, 42, 0.06);
+}
+.story-fact-num {
+  font-family: var(--font-display);
+  font-size: 24px;
+  color: var(--green-dark);
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+.story-fact-label {
+  font-size: 12px;
+  color: var(--brown-light);
+  line-height: 1.5;
+}
+
+/* ========================= */
+/* === TRUST BADGES ======== */
+/* ========================= */
+.trust-section {
+  padding: var(--section-pad) var(--side-pad);
+  background: var(--cream-dark);
+  text-align: center;
+}
+.trust-grid {
+  display: flex;
+  justify-content: center;
+  gap: clamp(16px, 2.5vw, 32px);
+  flex-wrap: wrap;
+}
+.trust-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 24px 20px;
+  background: var(--white);
+  border-radius: 18px;
+  border: 1px solid rgba(107, 58, 42, 0.06);
+  min-width: 130px;
+  transition: all var(--transition);
+}
+.trust-badge:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+.trust-badge-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: rgba(45, 80, 22, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.trust-badge-icon svg { width: 24px; height: 24px; }
+.trust-badge-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--brown);
+  text-align: center;
+  line-height: 1.4;
+}
+
+/* ========================= */
+/* === TESTIMONIALS ======== */
+/* ========================= */
+.testimonials-section {
+  padding: var(--section-pad) var(--side-pad);
+  background: var(--cream);
+  overflow: hidden;
+}
+.testimonials-track-wrap {
+  overflow: hidden;
+  position: relative;
+}
+.testimonials-track {
+  display: flex;
+  gap: clamp(16px, 2vw, 24px);
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.testimonial-card {
+  background: var(--white);
+  border-radius: var(--card-radius);
+  border: 1px solid rgba(107, 58, 42, 0.06);
+  padding: clamp(22px, 2.5vw, 30px);
+  min-width: clamp(280px, 30vw, 380px);
+  flex-shrink: 0;
+}
+.tc-stars {
+  font-size: 16px;
+  color: var(--gold);
+  letter-spacing: 2px;
+  margin-bottom: 16px;
+}
+.tc-quote {
+  font-family: var(--font-accent);
+  font-size: 14px;
+  color: var(--brown);
+  line-height: 1.9;
+  font-style: italic;
+  margin-bottom: 20px;
+}
+.tc-footer {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-top: 1px solid rgba(107, 58, 42, 0.06);
+  padding-top: 16px;
+}
+.tc-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(45, 80, 22, 0.08);
+  border: 1px solid rgba(45, 80, 22, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--green-dark);
+  flex-shrink: 0;
+}
+.tc-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--brown);
+}
+.tc-source {
+  font-size: 12px;
+  color: var(--brown-light);
+  margin-top: 2px;
+}
+.testimonials-nav {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 32px;
+}
+.testi-nav-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--white);
+  border: 1px solid rgba(107, 58, 42, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition);
+  color: var(--brown);
+}
+.testi-nav-btn:hover {
+  background: var(--gold);
+  color: var(--white);
+  border-color: var(--gold);
+}
+
+/* ========================= */
+/* === FAQ ACCORDION ======= */
+/* ========================= */
+.faq-section {
+  padding: var(--section-pad) var(--side-pad);
+  background: var(--cream);
+}
+.faq-list {
+  max-width: 740px;
+  margin-top: clamp(32px, 4vw, 52px);
+}
+.faq-item {
+  border-bottom: 1px solid rgba(107, 58, 42, 0.1);
+  padding: clamp(18px, 2vw, 24px) 0;
+}
+.faq-question {
+  font-family: var(--font-display);
+  font-size: clamp(15px, 1.4vw, 17px);
+  color: var(--brown);
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  background: none;
+  width: 100%;
+  text-align: left;
+  padding: 0;
+  font-weight: 500;
+}
+.faq-question:focus-visible { outline: 2px solid var(--gold); outline-offset: 4px; }
+.faq-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(107, 58, 42, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 18px;
+  color: var(--green-dark);
+  transition: transform 0.3s, background 0.3s, color 0.3s;
+}
+.faq-item.open .faq-icon {
+  transform: rotate(45deg);
+  background: var(--gold);
+  color: var(--white);
+  border-color: var(--gold);
+}
+.faq-answer {
+  font-size: 14px;
+  color: var(--brown-light);
+  line-height: 1.85;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), margin 0.3s, opacity 0.3s;
+  opacity: 0;
+  padding-right: 44px;
+}
+.faq-item.open .faq-answer {
+  max-height: 300px;
+  margin-top: 14px;
+  opacity: 1;
+}
+
+/* ========================= */
+/* === FINAL CTA =========== */
+/* ========================= */
+.final-cta {
+  padding: var(--section-pad) var(--side-pad);
+  background: var(--green-dark);
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+.final-cta::before {
+  content: '';
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  border: 1px solid rgba(253, 246, 236, 0.06);
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+.final-cta::after {
+  content: '';
+  position: absolute;
+  width: 900px;
+  height: 900px;
+  border-radius: 50%;
+  border: 1px solid rgba(253, 246, 236, 0.03);
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+.final-cta-eyebrow {
+  font-size: 11px;
+  color: rgba(253, 246, 236, 0.5);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 16px;
+  position: relative;
+}
+.final-cta h2 {
+  font-size: clamp(28px, 4vw, 48px);
+  color: var(--cream);
+  margin-bottom: 16px;
+  position: relative;
+}
+.final-cta h2 span { color: var(--gold); font-style: italic; }
+.final-cta-sub {
+  font-size: 15px;
+  color: rgba(253, 246, 236, 0.55);
+  margin-bottom: 48px;
+  position: relative;
+}
+.final-cta-products {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(12px, 1.5vw, 20px);
+  max-width: 1000px;
+  margin: 0 auto 40px;
+  position: relative;
+}
+.mini-card {
+  background: rgba(253, 246, 236, 0.06);
+  border: 1px solid rgba(253, 246, 236, 0.1);
+  border-radius: 18px;
+  padding: 16px;
+  text-align: center;
+  transition: all var(--transition);
+}
+.mini-card:hover {
+  background: rgba(253, 246, 236, 0.1);
+  transform: translateY(-4px);
+}
+.mini-card-img {
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 14px;
+  overflow: hidden;
+  margin-bottom: 14px;
+}
+.mini-card-img img { width: 100%; height: 100%; object-fit: cover; }
+.mini-card-name {
+  font-family: var(--font-display);
+  font-size: 14px;
+  color: var(--cream);
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+.mini-card-btn {
+  width: 100%;
+  padding: 10px 16px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--white);
+  transition: all var(--transition);
+  min-height: 40px;
+}
+.mini-card-btn.amazon { background: var(--amazon-orange); }
+.mini-card-btn.amazon:hover { background: #e68a00; }
+.mini-card-btn.flipkart { background: var(--flipkart-blue); }
+.mini-card-btn.flipkart:hover { background: #1a60d0; }
+.final-cta-contact {
+  font-size: 13px;
+  color: rgba(253, 246, 236, 0.35);
+  position: relative;
+  margin-top: 12px;
+}
+
+/* ========================= */
+/* === FOOTER ============== */
+/* ========================= */
+.site-footer {
+  background: var(--dark);
+  padding: clamp(48px, 6vw, 80px) var(--side-pad) 28px;
+}
+.footer-top {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: clamp(32px, 4vw, 56px);
+  padding-bottom: clamp(36px, 4vw, 56px);
+  border-bottom: 1px solid rgba(253, 246, 236, 0.06);
+}
+.footer-brand-name {
+  font-family: var(--font-display);
+  font-size: 22px;
+  color: var(--cream);
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+.footer-brand-desc {
+  font-size: 13px;
+  color: rgba(253, 246, 236, 0.35);
+  line-height: 1.85;
+  margin-bottom: 20px;
+}
+.footer-contact-item {
+  font-size: 12px;
+  color: rgba(253, 246, 236, 0.3);
+  margin-bottom: 5px;
+}
+.footer-col-title {
+  font-size: 10px;
+  color: var(--gold);
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 18px;
+}
+.footer-col a {
+  display: block;
+  font-size: 13px;
+  color: rgba(253, 246, 236, 0.35);
+  margin-bottom: 10px;
+  transition: color var(--transition);
+}
+.footer-col a:hover { color: var(--gold); }
+.footer-social {
+  display: flex;
+  gap: 10px;
+  margin-top: 16px;
+}
+.footer-social a {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(253, 246, 236, 0.06);
+  border: 1px solid rgba(253, 246, 236, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition);
+  margin-bottom: 0;
+}
+.footer-social a:hover {
+  background: var(--gold);
+  border-color: var(--gold);
+}
+.footer-social a svg { width: 16px; height: 16px; }
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 24px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.footer-copy {
+  font-size: 12px;
+  color: rgba(253, 246, 236, 0.2);
+}
+.footer-badges {
+  display: flex;
+  gap: 10px;
+}
+.footer-mkt-badge {
+  font-size: 11px;
+  padding: 5px 14px;
+  border-radius: 14px;
+}
+.footer-mkt-badge.amz {
+  background: rgba(255, 153, 0, 0.1);
+  color: var(--amazon-orange);
+  border: 1px solid rgba(255, 153, 0, 0.2);
+}
+.footer-mkt-badge.flip {
+  background: rgba(40, 116, 240, 0.1);
+  color: #6ba3f5;
+  border: 1px solid rgba(40, 116, 240, 0.2);
+}
+
+/* ============================================ */
+/* === RESPONSIVE — TABLET (768px - 1199px) === */
+/* ============================================ */
+@media (max-width: 1199px) {
+  .products-grid { grid-template-columns: repeat(2, 1fr); }
+  .benefits-grid { grid-template-columns: repeat(2, 1fr); }
+  .final-cta-products { grid-template-columns: repeat(2, 1fr); }
+  .story-grid { gap: 40px; }
+  .footer-top { grid-template-columns: 1fr 1fr; gap: 32px; }
+  .hero-content { gap: 40px; }
+}
+
+/* ============================================ */
+/* === RESPONSIVE — MOBILE (< 768px) ========== */
+/* ============================================ */
+@media (max-width: 767px) {
+  .nav-links { display: none; }
+  .nav-cta { display: none; }
+  .hamburger { display: flex; }
+
+  .hero-content {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  .hero-left { max-width: 100%; }
+  .hero-desc { max-width: 100%; margin-left: auto; margin-right: auto; }
+  .hero-tag { margin-left: auto; margin-right: auto; }
+  .hero-buttons { justify-content: center; }
+  .hero-stats { justify-content: center; flex-wrap: wrap; gap: 8px; }
+  .hero-stat { padding: 8px 16px; border-right: none; }
+  .hero-right { min-height: 300px; margin-top: 20px; }
+  .hero-product-frame {
+    width: 200px;
+    height: 260px;
+  }
+  .hp-tl, .hp-tr, .hp-bl, .hp-br { display: none; }
+  .hero-trust-badge { bottom: 2%; font-size: 9px; }
+
+  .products-grid { grid-template-columns: 1fr; gap: 16px; max-width: 420px; margin-left: auto; margin-right: auto; }
+  .product-card { perspective: none; will-change: auto; width: 100%; }
+  .product-card-inner { transform-style: flat; transform: none; }
+  .pc-img-wrap { height: 240px; width: 100%; aspect-ratio: auto; display: flex; align-items: center; justify-content: center; }
+  .pc-img-wrap img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
+  .product-card:hover .pc-img-wrap img { transform: none; }
+  .pc-buy-btn { width: 100%; justify-content: center; min-height: 48px; font-size: 14px; }
+  .pc-footer { flex-direction: column; align-items: stretch; gap: 12px; }
+
+  .benefits-grid { grid-template-columns: 1fr; gap: 14px; }
+  .benefit-card { padding: 22px; }
+
+  .story-grid { grid-template-columns: 1fr; gap: 32px; }
+  .story-images {
+    min-height: 280px;
+    order: -1;
+  }
+  .story-img-big { width: 60%; height: 85%; }
+  .story-img-small { width: 48%; height: 50%; }
+
+  .trust-grid {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 12px;
+    justify-content: flex-start;
+  }
+  .trust-badge {
+    scroll-snap-align: start;
+    min-width: 140px;
+    flex-shrink: 0;
+  }
+
+  .testimonial-card { min-width: 85vw; }
+
+  .final-cta-products { grid-template-columns: repeat(2, 1fr); max-width: 400px; gap: 12px; margin-left: auto; margin-right: auto; }
+  .mini-card-img { border-radius: 10px; aspect-ratio: 1; object-fit: cover; }
+  .mini-card-btn { min-height: 48px; font-size: 13px; padding: 12px; }
+
+  .footer-top { grid-template-columns: 1fr; }
+  .footer-bottom { flex-direction: column; text-align: center; }
+
+  .hero-btn-primary, .hero-btn-secondary {
+    min-height: 48px;
+    min-width: 48px;
+  }
+  .testi-nav-btn {
+    min-height: 48px;
+    min-width: 48px;
+  }
+}
+
+/* small mobile */
+@media (max-width: 400px) {
+  .hero-product-frame { width: 170px; height: 220px; }
+  .hero-buttons { flex-direction: column; width: 100%; }
+  .hero-btn-primary, .hero-btn-secondary { width: 100%; text-align: center; }
+  .final-cta-products { max-width: 100%; }
+}
+</style>
+
+<!-- ================= SEO JSON-LD ================= -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Kakran Organic",
+  "url": "https://kakranorganic.com",
+  "logo": "https://kakranorganic.com/logo.png",
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "telephone": "+91-9258946624",
+    "contactType": "customer service"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    { "@type": "Question", "name": "Are Kakran Organic products truly 100% organic?", "acceptedAnswer": { "@type": "Answer", "text": "Yes — all our products are grown on our own farmland using strictly organic methods." } },
+    { "@type": "Question", "name": "Where can I buy Kakran Organic products?", "acceptedAnswer": { "@type": "Answer", "text": "We sell on Amazon India and Flipkart." } }
+  ]
+}
+</script>
+<!-- ============================================== -->
+</head>
+<body>
+
+<!-- === STICKY NAVBAR === -->
+<header class="navbar" id="navbar">
+  <div class="nav-logo">
+    <div class="nav-logo-icon">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M12 3C8.5 3 5 7 5 12c0 4.5 3 7.5 7 8.5 4-1 7-4 7-8.5C19 7 15.5 3 12 3z" fill="#FDF6EC"/><path d="M12 10v9M9.5 13.5C10.5 12 11 11 12 10" stroke="#2D5016" stroke-width="1.5" stroke-linecap="round"/></svg>
+    </div>
+    <div>
+      <div class="nav-brand">Kakran Organic<span class="nav-brand-sub">Pure · Natural · Trusted</span></div>
+    </div>
+  </div>
+  <nav class="nav-links" aria-label="Main navigation">
+    <a href="#home">Home</a>
+    <a href="#products">Products</a>
+    <a href="#benefits">Benefits</a>
+    <a href="#story">Story</a>
+    <a href="#reviews">Reviews</a>
+    <a href="#faq">FAQ</a>
+  </nav>
+  <button class="nav-cta" onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})" id="nav-shop-btn">Shop Now</button>
+  <button class="hamburger" id="hamburgerBtn" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<!-- Mobile Drawer -->
+<div class="drawer-overlay" id="drawerOverlay"></div>
+<nav class="mobile-drawer" id="mobileDrawer" aria-label="Mobile navigation">
+  <a href="#home" class="drawer-link">Home</a>
+  <a href="#products" class="drawer-link">Products</a>
+  <a href="#benefits" class="drawer-link">Benefits</a>
+  <a href="#story" class="drawer-link">Story</a>
+  <a href="#reviews" class="drawer-link">Reviews</a>
+  <a href="#faq" class="drawer-link">FAQ</a>
+  <a href="#products" class="drawer-cta drawer-link">Shop Now</a>
+</nav>
+
+<main>
+
+<!-- === HERO SECTION === -->
+<section class="hero" id="home">
+  <canvas id="hero-canvas"></canvas>
+  <div class="hero-content">
+    <div class="hero-left">
+      <div class="hero-tag">
+        <div class="hero-tag-dot"></div>
+        <span>15 Years of Organic Farming</span>
+      </div>
+      <h1>
+        <span class="hero-word" style="animation-delay:0.1s">Nature's</span>
+        <span class="hero-word" style="animation-delay:0.2s">Purest</span><br>
+        <span class="hero-word green" style="animation-delay:0.35s">Gifts,</span>
+        <span class="hero-word" style="animation-delay:0.45s">Delivered</span><br>
+        <span class="hero-word" style="animation-delay:0.55s">as</span>
+        <span class="hero-word gold" style="animation-delay:0.65s">Gold.</span>
+      </h1>
+      <p class="hero-desc">From the organic fields of Kakran village — turmeric, vinegar, raw roots and vermicompost grown with zero chemicals and ancestral expertise. Trusted by 10,000+ families.</p>
+      <div class="hero-buttons">
+        <button class="hero-btn-primary" onclick="buyNow('rawTurmeric')" id="hero-shop-btn">Shop on Amazon</button>
+        <button class="hero-btn-secondary" onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})" id="hero-explore-btn">Explore Products</button>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat"><div class="hero-stat-num" data-count="15">15+</div><div class="hero-stat-label">Years Farming</div></div>
+        <div class="hero-stat"><div class="hero-stat-num">100%</div><div class="hero-stat-label">Chemical Free</div></div>
+        <div class="hero-stat"><div class="hero-stat-num">★ 4.8</div><div class="hero-stat-label">Avg Rating</div></div>
+        <div class="hero-stat"><div class="hero-stat-num" data-count="10000">10,000+</div><div class="hero-stat-label">Happy Families</div></div>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-product-frame">
+        <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="images/img1.png" class="lazy-base64" alt="Organic Raw Turmeric — Kakran Organic" loading="eager" width="320" height="400">
+      </div>
+      <div class="hero-pill hp-tl">
+        <div class="hero-pill-img"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="images/img2.png" class="lazy-base64" alt="Sugarcane Vinegar" loading="lazy" width="36" height="36"></div>
+        <div><div class="hero-pill-name">Sugarcane Vinegar</div><div class="hero-pill-rating">★★★★★ 4.7</div></div>
+      </div>
+      <div class="hero-pill hp-tr">
+        <div class="hero-pill-img"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="images/img3.png" class="lazy-base64" alt="Vermicompost" loading="lazy" width="36" height="36"></div>
+        <div><div class="hero-pill-name">Vermicompost 20kg</div><div class="hero-pill-rating">★★★★★ 4.9</div></div>
+      </div>
+      <div class="hero-pill hp-bl">
+        <div class="hero-pill-img"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="images/img4.png" class="lazy-base64" alt="Turmeric Powder" loading="lazy" width="36" height="36"></div>
+        <div><div class="hero-pill-name">Turmeric Powder</div><div class="hero-pill-rating">★★★★★ 4.8</div></div>
+      </div>
+      <div class="hero-trust-badge">Trusted by 10,000+ Families Across India</div>
+    </div>
+  </div>
+</section>
+
+<!-- === TRUST TICKER === -->
+<div class="ticker">
+  <div class="ticker-track" id="tickerTrack">
+    <div class="ticker-item"><div class="ticker-sep"></div>100% Organic Certified</div>
+    <div class="ticker-item"><div class="ticker-sep"></div>Zero Chemicals Ever</div>
+    <div class="ticker-item"><div class="ticker-sep"></div>Farm to Your Door</div>
+    <div class="ticker-item"><div class="ticker-sep"></div>Kakran Village, India</div>
+    <div class="ticker-item"><div class="ticker-sep"></div>15 Years of Trust</div>
+    <div class="ticker-item"><div class="ticker-sep"></div>FSSAI Registered</div>
+    <div class="ticker-item"><div class="ticker-sep"></div>Available on Amazon</div>
+    <div class="ticker-item"><div class="ticker-sep"></div>Available on Flipkart</div>
+    <div class="ticker-item"><div class="ticker-sep"></div>100% Organic Certified</div>
+    <div class="ticker-item"><div class="ticker-sep"></div>Zero Chemicals Ever</div>
+    <div class="ticker-item"><div class="ticker-sep"></div>Farm to Your Door</div>
+    <div class="ticker-item"><div class="ticker-sep"></div>Kakran Village, India</div>
+    <div class="ticker-item"><div class="ticker-sep"></div>15 Years of Trust</div>
+    <div class="ticker-item"><div class="ticker-sep"></div>FSSAI Registered</div>
+    <div class="ticker-item"><div class="ticker-sep"></div>Available on Amazon</div>
+    <div class="ticker-item"><div class="ticker-sep"></div>Available on Flipkart</div>
+  </div>
+</div>
+
+<!-- === PRODUCT SHOWCASE === -->
+<section class="products-section" id="products">
+  <div class="section-label">Our Organic Range</div>
+  <h2 class="section-title reveal">Products born from<br><em>pure earth</em></h2>
+  <div class="products-grid" id="productsGrid">
+    <!-- JS will populate -->
+  </div>
+</section>
+
+<!-- === ORGANIC BENEFITS === -->
+<section class="benefits-section" id="benefits">
+  <div class="section-label">The Kakran Difference</div>
+  <h2 class="section-title reveal">Why thousands choose<br><em>Kakran Organic</em></h2>
+  <div class="benefits-grid" id="benefitsGrid">
+    <!-- JS will populate -->
+  </div>
+</section>
+
+<!-- === INGREDIENT ORIGIN STORY === -->
+<section class="story-section" id="story">
+  <div class="story-grid">
+    <div class="story-images reveal">
+      <div class="story-img-big">
+        <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="images/img1.png" class="lazy-base64" alt="Raw Turmeric Roots from Kakran village" loading="lazy" width="600" height="500">
+      </div>
+      <div class="story-img-small">
+        <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="images/img3.png" class="lazy-base64" alt="Kakran Organic Vermicompost Fertilizer" loading="lazy" width="400" height="350">
+      </div>
+      <div class="story-year-badge"><strong>2009</strong><span>since</span></div>
+    </div>
+    <div class="story-content reveal">
+      <div class="section-label" style="margin-bottom:14px">Our Story</div>
+      <h2>Rooted in <em>Kakran's</em><br>organic soil since 2009</h2>
+      <p>For over 15 years, the fields of Kakran village have given us the finest organic turmeric in India. We don't just sell a spice — we share a tradition of healing, cooking, and living close to the earth.</p>
+      <p>Every batch is hand-harvested, naturally dried, and stone-ground — preserving the full curcumin content and natural goodness that makes Kakran Organic different from anything you'll find in a supermarket.</p>
+      <div class="story-facts">
+        <div class="story-fact"><div class="story-fact-num">3–5%</div><div class="story-fact-label">Curcumin content vs under 1% in commercial brands</div></div>
+        <div class="story-fact"><div class="story-fact-num">Zero</div><div class="story-fact-label">Artificial additives or preservatives in any product</div></div>
+        <div class="story-fact"><div class="story-fact-num">10,000+</div><div class="story-fact-label">Families trust Kakran Organic products daily</div></div>
+        <div class="story-fact"><div class="story-fact-num">5+ yrs</div><div class="story-fact-label">Selling on Amazon & Flipkart with 4.8 avg rating</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- === TRUST & CERTIFICATIONS === -->
+<section class="trust-section" id="trust">
+  <div class="section-label" style="justify-content:center">Certifications & Trust</div>
+  <h2 class="section-title reveal" style="text-align:center">Quality you can <em>verify</em></h2>
+  <div class="trust-grid" id="trustGrid">
+    <!-- JS will populate -->
+  </div>
+</section>
+
+<!-- === TESTIMONIALS CAROUSEL === -->
+<section class="testimonials-section" id="reviews">
+  <div class="section-label">Real Customers</div>
+  <h2 class="section-title reveal">Trusted by <em>thousands</em> across India</h2>
+  <div class="testimonials-track-wrap">
+    <div class="testimonials-track" id="testiTrack">
+      <!-- JS will populate -->
+    </div>
+  </div>
+  <div class="testimonials-nav">
+    <button class="testi-nav-btn" id="testiPrev" aria-label="Previous testimonial">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg>
+    </button>
+    <button class="testi-nav-btn" id="testiNext" aria-label="Next testimonial">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg>
+    </button>
+  </div>
+</section>
+
+<!-- === FAQ ACCORDION === -->
+<section class="faq-section" id="faq">
+  <div class="section-label">Common Questions</div>
+  <h2 class="section-title reveal">Frequently asked</h2>
+  <div class="faq-list" id="faqList">
+    <!-- JS will populate -->
+  </div>
+</section>
+
+<!-- === FINAL CTA === -->
+<section class="final-cta" id="final-cta">
+  <div class="final-cta-eyebrow reveal">Ready to go organic?</div>
+  <h2 class="reveal">Your health deserves<br>the <span>purest ingredients.</span></h2>
+  <p class="final-cta-sub reveal">Find all Kakran Organic products on Amazon and Flipkart. Fast delivery across India.</p>
+  <div class="final-cta-products reveal" id="finalCtaProducts">
+    <!-- JS will populate -->
+  </div>
+  <div class="final-cta-contact">Questions? Call 9258-94-6624 or email kakafertilizer@gmail.com</div>
+</section>
+
+</main>
+
+<!-- === FOOTER === -->
+<footer class="site-footer">
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand-name">Kakran Organic</div>
+      <div class="footer-brand-desc">Pure From Earth. Powerful For Life. — Premium organic products grown with 15 years of farming expertise. Rooted in the soil of Kakran village, India.</div>
+      <div class="footer-contact-item">village Dharamsanagli, NH-74, Nagina 246762</div>
+      <div class="footer-contact-item">9258-94-6624 · kakafertilizer@gmail.com</div>
+      <div class="footer-social">
+        <a href="https://wa.me/919258946624" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+          <svg viewBox="0 0 24 24" fill="rgba(253,246,236,0.6)"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        </a>
+        <a href="mailto:kakafertilizer@gmail.com" aria-label="Email">
+          <svg viewBox="0 0 24 24" fill="none" stroke="rgba(253,246,236,0.6)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 7l-10 7L2 7"/></svg>
+        </a>
+        <a href="tel:+919258946624" aria-label="Phone">
+          <svg viewBox="0 0 24 24" fill="none" stroke="rgba(253,246,236,0.6)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Products</div>
+      <a href="#products">Organic Turmeric Powder</a>
+      <a href="#products">Raw Turmeric (Kachchi Haldi)</a>
+      <a href="#products">Sugarcane Vinegar</a>
+      <a href="#products">Vermicompost Fertilizer</a>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Shop At</div>
+      <a href="https://amzn.in/d/0inIyoOy" target="_blank" rel="noopener noreferrer">Amazon India</a>
+      <a href="https://dl.flipkart.com/s/jM1iOJuuuN" target="_blank" rel="noopener noreferrer">Flipkart</a>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Company</div>
+      <a href="#story">Our Story</a>
+      <a href="#benefits">Organic Farming</a>
+      <a href="#faq">FAQ</a>
+      <a href="https://wa.me/919258946624" target="_blank" rel="noopener noreferrer">Contact Us</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2024 Kakran Organic. Pure From Earth. Powerful For Life.</div>
+    <div class="footer-badges">
+      <span class="footer-mkt-badge amz">Amazon</span>
+      <span class="footer-mkt-badge flip">Flipkart</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* === PRODUCTS CONFIG (TOP OF SCRIPT) === */
+const PRODUCTS = {
+  rawTurmeric: {
+    name: 'Organic Raw Turmeric',
+    subtitle: 'Farm-Fresh | Chemical-Free | Hand-Harvested',
+    description: 'Pure raw turmeric root sourced directly from organic farms. No pesticides, no processing — just nature at its most powerful.',
+    platform: 'amazon',
+    url: 'https://amzn.in/d/0inIyoOy',
+    badge: 'Best Seller on Amazon',
+    color: '#E8A020',
+    image: 'images/img1.png',
+    rating: '4.9',
+    category: 'Raw Roots'
+  },
+  vermicompost: {
+    name: 'Vermicompost 20kg',
+    subtitle: '100% Natural | Nutrient-Rich | All Garden Types',
+    description: 'Premium organic fertilizer that improves plant health, water retention, and soil quality. Trusted by home gardeners across India.',
+    platform: 'amazon',
+    url: 'https://amzn.in/d/05lhalxi',
+    badge: 'Top Rated on Amazon',
+    color: '#2D5016',
+    image: 'images/img3.png',
+    rating: '4.9',
+    category: 'Fertilizer'
+  },
+  sugarcaneVinegar: {
+    name: 'Organic Sugarcane Vinegar',
+    subtitle: 'Traditionally Made | Pure | Unfiltered',
+    description: 'Raw sugarcane vinegar crafted using age-old methods. Rich in natural enzymes, perfect for cooking and wellness.',
+    platform: 'flipkart',
+    url: 'https://dl.flipkart.com/s/jM1iOJuuuN',
+    badge: 'Available on Flipkart',
+    color: '#8B6914',
+    image: 'images/img2.png',
+    rating: '4.7',
+    category: 'Vinegar'
+  },
+  turmericPowder: {
+    name: 'Organic Turmeric Powder',
+    subtitle: 'Stone-Ground | Zero Additives | High Curcumin',
+    description: 'Cold stone-ground turmeric powder with maximum curcumin content. No fillers, no artificial color — just pure golden goodness.',
+    platform: 'flipkart',
+    url: 'https://dl.flipkart.com/s/jMIUGVuuuN',
+    badge: 'Available on Flipkart',
+    color: '#D4820A',
+    image: 'images/img4.png',
+    rating: '4.8',
+    category: 'Spice'
+  }
+};
+
+/* === BUY NOW FUNCTION === */
+function buyNow(productKey) {
+  const p = PRODUCTS[productKey];
+  if (p && p.url) {
+    window.open(p.url, '_blank', 'noopener,noreferrer');
+  }
+}
+
+/* === DETECT TOUCH DEVICE === */
+const isTouchDevice = window.matchMedia('(hover: none)').matches;
+
+/* ================================ */
+/* === RENDER PRODUCT CARDS ======= */
+/* ================================ */
+(function renderProducts() {
+  const grid = document.getElementById('productsGrid');
+  const keys = Object.keys(PRODUCTS);
+  keys.forEach((key, i) => {
+    const p = PRODUCTS[key];
+    const isAmazon = p.platform === 'amazon';
+    const card = document.createElement('article');
+    card.className = 'product-card reveal';
+    card.style.transitionDelay = `${i * 150}ms`;
+    card.innerHTML = `
+      <div class="product-card-inner" data-card-tilt>
+        <div class="pc-img-wrap">
+          <img src="${p.image}" alt="${p.name} — Kakran Organic" loading="lazy" width="400" height="300" style="aspect-ratio:4/3;">
+          <div class="pc-badge ${p.platform}">${p.badge}</div>
+        </div>
+        <div class="pc-body">
+          <div class="pc-name">${p.name}</div>
+          <div class="pc-subtitle">${p.subtitle}</div>
+          <div class="pc-desc">${p.description}</div>
+          <div class="pc-footer">
+            <div class="pc-stars">★★★★★ ${p.rating}</div>
+            <button class="pc-buy-btn ${p.platform}" onclick="buyNow('${key}')" id="buy-${key}">
+              ${isAmazon ? '<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M13.958 10.09c0 1.232.029 2.256-.591 3.351-.5.891-1.281 1.44-2.159 1.44-1.2 0-1.9-.913-1.9-2.262 0-2.663 2.389-3.148 4.65-3.148v.619zm3.156 7.632c-.209.182-.51.196-.745.074-1.052-.872-1.238-1.276-1.814-2.106-1.735 1.768-2.962 2.298-5.209 2.298-2.66 0-4.731-1.641-4.731-4.925 0-2.565 1.391-4.309 3.37-5.164 1.715-.754 4.11-.891 5.942-1.095v-.41c0-.754.058-1.641-.385-2.29-.385-.579-1.124-.818-1.775-.818-1.205 0-2.277.618-2.54 1.897-.054.285-.261.566-.546.58l-3.06-.33c-.258-.058-.544-.267-.472-.662C5.943 1.554 9.099.1 11.908.1c1.397 0 3.219.372 4.319 1.432 1.397 1.304 1.264 3.046 1.264 4.941v4.476c0 1.345.558 1.935 1.082 2.661.182.261.222.574-.009.768-.581.485-1.616 1.389-2.186 1.895l-.264-.051z"/></svg> ' : '<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M3.833 1h16.334A2.833 2.833 0 0123 3.833v16.334A2.833 2.833 0 0120.167 23H3.833A2.833 2.833 0 011 20.167V3.833A2.833 2.833 0 013.833 1zM12 5.5l-4 7h3v6l4-7h-3v-6z"/></svg> '}
+              Buy on ${isAmazon ? 'Amazon' : 'Flipkart'}
+            </button>
+          </div>
+        </div>
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+})();
+
+/* ================================ */
+/* === RENDER BENEFITS ============ */
+/* ================================ */
+(function renderBenefits() {
+  const grid = document.getElementById('benefitsGrid');
+  const benefits = [
+    { icon: '<svg viewBox="0 0 24 24" fill="none"><path d="M12 2C8 2 5 6 5 10c0 5 7 12 7 12s7-7 7-12c0-4-3-8-7-8z" fill="#2D5016"/><circle cx="12" cy="10" r="2" fill="#FDF6EC"/></svg>', title: 'Farm to Your Door', desc: 'Grown on our own land — no middlemen, no compromise in purity or freshness.', counter: '' },
+    { icon: '<svg viewBox="0 0 24 24" fill="none"><path d="M9 12l2 2 4-4" stroke="#2D5016" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="9" stroke="#2D5016" stroke-width="1.5"/></svg>', title: 'Zero Chemicals, Ever', desc: 'No pesticides, no synthetics, no preservatives. Just nature — exactly as intended.', counter: '' },
+    { icon: '<svg viewBox="0 0 24 24" fill="none"><path d="M12 2l2.5 7.5H22l-6 4.5 2.5 7.5L12 17l-6.5 4.5 2.5-7.5L2 9.5h7.5z" fill="#E8A020" opacity="0.85"/></svg>', title: '★ 4.8 Average on Amazon', desc: 'Thousands of verified buyers. Consistently rated best in category.', counter: '10,000+' },
+    { icon: '<svg viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="7" height="7" rx="1" stroke="#2D5016" stroke-width="1.5"/><rect x="14" y="3" width="7" height="7" rx="1" stroke="#2D5016" stroke-width="1.5"/><rect x="3" y="14" width="7" height="7" rx="1" stroke="#2D5016" stroke-width="1.5"/><rect x="14" y="14" width="7" height="7" rx="1" stroke="#2D5016" stroke-width="1.5"/></svg>', title: 'Complete Organic Range', desc: 'Spice, vinegar, raw roots, and fertilizer — a full organic ecosystem for kitchen and garden.', counter: '' },
+    { icon: '<svg viewBox="0 0 24 24" fill="none"><path d="M12 3v18M7 7l5-4 5 4" stroke="#2D5016" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>', title: '15 Years of Expertise', desc: 'Farming knowledge built over 15 years. Every product carries the weight of tradition.', counter: '15+' },
+    { icon: '<svg viewBox="0 0 24 24" fill="none"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" stroke="#2D5016" stroke-width="1.5"/><path d="M9 22V12h6v10" stroke="#2D5016" stroke-width="1.5"/></svg>', title: 'Made in India with Pride', desc: 'Supporting local organic farming — every purchase sustains traditional agriculture.', counter: '' }
+  ];
+  benefits.forEach((b, i) => {
+    const card = document.createElement('div');
+    card.className = 'benefit-card reveal';
+    card.style.transitionDelay = `${i * 100}ms`;
+    card.innerHTML = `
+      <div class="benefit-icon">${b.icon}</div>
+      <div class="benefit-title">${b.title}</div>
+      <div class="benefit-desc">${b.desc}</div>
+      ${b.counter ? `<div class="benefit-counter">${b.counter}</div>` : ''}
+    `;
+    grid.appendChild(card);
+  });
+})();
+
+/* ================================ */
+/* === RENDER TRUST BADGES ======== */
+/* ================================ */
+(function renderTrust() {
+  const grid = document.getElementById('trustGrid');
+  const badges = [
+    { icon: '<svg viewBox="0 0 24 24" fill="none"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 12c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" stroke="#2D5016" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>', label: 'FSSAI Registered' },
+    { icon: '<svg viewBox="0 0 24 24" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="#2D5016" stroke-width="1.5"/><path d="M9 12l2 2 4-4" stroke="#2D5016" stroke-width="2" stroke-linecap="round"/></svg>', label: '100% Organic' },
+    { icon: '<svg viewBox="0 0 24 24" fill="none"><path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2v-4M9 21H5a2 2 0 01-2-2v-4" stroke="#2D5016" stroke-width="1.5"/><circle cx="12" cy="12" r="2" stroke="#2D5016" stroke-width="1.5"/></svg>', label: 'Lab Tested' },
+    { icon: '<svg viewBox="0 0 24 24" fill="none"><path d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" stroke="#2D5016" stroke-width="1.5" stroke-linecap="round"/></svg>', label: 'No Preservatives' },
+    { icon: '<svg viewBox="0 0 24 24" fill="none"><path d="M12 3C8.5 3 5 7 5 12c0 4.5 3 7.5 7 8.5 4-1 7-4 7-8.5C19 7 15.5 3 12 3z" fill="none" stroke="#2D5016" stroke-width="1.5"/><path d="M12 10v9M9.5 13.5C10.5 12 11 11 12 10" stroke="#2D5016" stroke-width="1.5" stroke-linecap="round"/></svg>', label: 'Pesticide Free' },
+    { icon: '<svg viewBox="0 0 24 24" fill="none"><path d="M3 21h18M5 21V7l7-4 7 4v14" stroke="#2D5016" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 21v-4h6v4M9 10h.01M15 10h.01M9 14h.01M15 14h.01" stroke="#2D5016" stroke-width="1.5" stroke-linecap="round"/></svg>', label: 'Made in India' }
+  ];
+  badges.forEach(b => {
+    const el = document.createElement('div');
+    el.className = 'trust-badge reveal';
+    el.innerHTML = `<div class="trust-badge-icon">${b.icon}</div><div class="trust-badge-label">${b.label}</div>`;
+    grid.appendChild(el);
+  });
+})();
+
+/* ================================ */
+/* === RENDER TESTIMONIALS ======== */
+/* ================================ */
+(function renderTestimonials() {
+  const track = document.getElementById('testiTrack');
+  const testimonials = [
+    { text: '"Best turmeric I have ever used. The colour, aroma and potency is unlike anything from a supermarket. My whole family has switched to Kakran Organic."', name: 'Priya Rawat', city: 'Delhi', source: 'Verified Amazon buyer', initials: 'PR', product: 'Turmeric Powder' },
+    { text: '"The vermicompost transformed my home garden. My plants have never been healthier. Visible results in just 3 weeks of use."', name: 'Amit Kumar', city: 'Bangalore', source: 'Verified Amazon buyer', initials: 'AK', product: 'Vermicompost' },
+    { text: '"The sugarcane vinegar is genuinely raw and pure. You can tell the difference immediately. I use it daily and have ordered 6 times already."', name: 'Sunita Mehta', city: 'Mumbai', source: 'Verified Flipkart buyer', initials: 'SM', product: 'Vinegar' },
+    { text: '"I have been buying raw turmeric from Kakran for 2 years now. The quality is consistently excellent. Nothing else compares."', name: 'Rajesh Sharma', city: 'Jaipur', source: 'Verified Amazon buyer', initials: 'RS', product: 'Raw Turmeric' },
+    { text: '"My grandmother used to grind turmeric at home — this is the closest I have found to that authentic taste and colour. Highly recommended."', name: 'Anita Devi', city: 'Lucknow', source: 'Verified Flipkart buyer', initials: 'AD', product: 'Turmeric Powder' },
+    { text: '"Ordered the vermicompost for my terrace garden. The soil quality improved dramatically. My roses are blooming like never before!"', name: 'Vikram Singh', city: 'Chandigarh', source: 'Verified Amazon buyer', initials: 'VS', product: 'Vermicompost' }
+  ];
+  testimonials.forEach(t => {
+    const card = document.createElement('div');
+    card.className = 'testimonial-card';
+    card.innerHTML = `
+      <div class="tc-stars">★★★★★</div>
+      <div class="tc-quote">${t.text}</div>
+      <div class="tc-footer">
+        <div class="tc-avatar">${t.initials}</div>
+        <div>
+          <div class="tc-name">${t.name}</div>
+          <div class="tc-source">${t.city} · ${t.source} · ${t.product}</div>
+        </div>
+      </div>
+    `;
+    track.appendChild(card);
+  });
+})();
+
+/* ================================ */
+/* === RENDER FAQ ================= */
+/* ================================ */
+(function renderFAQ() {
+  const list = document.getElementById('faqList');
+  const faqs = [
+    { q: 'Are Kakran Organic products truly 100% organic?', a: 'Yes — all our products are grown on our own farmland using strictly organic methods with zero synthetic chemicals of any kind. We have been farming organically for over 15 years.' },
+    { q: 'Where can I buy Kakran Organic products?', a: 'We sell on Amazon India and Flipkart. Search "Kakran Organic" on either platform to find our full range. You can also click any Buy button on this website to go directly to the product page.' },
+    { q: 'What makes your turmeric powder different from market brands?', a: 'Our turmeric has 3–5% natural curcumin versus under 1% in most commercial brands. It is single-origin, stone-ground, and free of any additives or artificial colour.' },
+    { q: 'Can I use the vermicompost for indoor and balcony plants?', a: 'Absolutely. Our vermicompost is perfect for indoor pots, balcony gardens, and outdoor beds. It is odourless, clean, and completely safe to handle at home.' },
+    { q: 'Is the sugarcane vinegar safe for daily consumption?', a: 'Yes, our sugarcane vinegar is traditionally fermented, raw, and unfiltered. Many customers use it daily for cooking, salad dressings, and general wellness. It is rich in natural enzymes.' },
+    { q: 'Do you offer bulk orders or wholesale pricing?', a: 'Yes, we do offer bulk orders for our vermicompost and turmeric products. Please contact us directly at 9258-94-6624 or email kakafertilizer@gmail.com for wholesale inquiries.' },
+    { q: 'How should I store the raw turmeric roots?', a: 'Store in a cool, dry place away from direct sunlight. For longer shelf life, you can refrigerate them. Raw turmeric roots can also be frozen for up to 6 months without losing potency.' },
+    { q: 'How do I contact Kakran Organic?', a: 'Call us on 9258-94-6624 or email kakafertilizer@gmail.com. We are at village Dharamsanagli, NH-74, Nagina 246762, India. You can also reach us via WhatsApp.' }
+  ];
+  faqs.forEach((f, i) => {
+    const item = document.createElement('div');
+    item.className = `faq-item${i === 0 ? ' open' : ''}`;
+    item.innerHTML = `
+      <button class="faq-question" aria-expanded="${i === 0}" id="faq-q-${i}">
+        ${f.q}
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-answer" id="faq-a-${i}">${f.a}</div>
+    `;
+    list.appendChild(item);
+  });
+  list.addEventListener('click', e => {
+    const btn = e.target.closest('.faq-question');
+    if (!btn) return;
+    const item = btn.parentElement;
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => {
+      i.classList.remove('open');
+      i.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+    });
+    if (!isOpen) {
+      item.classList.add('open');
+      btn.setAttribute('aria-expanded', 'true');
+    }
+  });
+})();
+
+/* ================================ */
+/* === RENDER FINAL CTA PRODUCTS == */
+/* ================================ */
+(function renderFinalCTA() {
+  const wrap = document.getElementById('finalCtaProducts');
+  const keys = Object.keys(PRODUCTS);
+  keys.forEach(key => {
+    const p = PRODUCTS[key];
+    const isAmazon = p.platform === 'amazon';
+    const card = document.createElement('div');
+    card.className = 'mini-card';
+    card.innerHTML = `
+      <div class="mini-card-img"><img src="${p.image}" alt="${p.name}" loading="lazy" width="200" height="200" style="aspect-ratio:1;"></div>
+      <div class="mini-card-name">${p.name}</div>
+      <button class="mini-card-btn ${p.platform}" onclick="buyNow('${key}')" id="final-buy-${key}">Buy on ${isAmazon ? 'Amazon' : 'Flipkart'}</button>
+    `;
+    wrap.appendChild(card);
+  });
+})();
+
+/* ================================ */
+/* === NAVBAR SCROLL BEHAVIOR ===== */
+/* ================================ */
+(function navbarScroll() {
+  const nav = document.getElementById('navbar');
+  let ticking = false;
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        nav.classList.toggle('scrolled', window.scrollY > 40);
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }, { passive: true });
+})();
+
+/* ================================ */
+/* === HAMBURGER MENU ============= */
+/* ================================ */
+(function hamburgerMenu() {
+  const btn = document.getElementById('hamburgerBtn');
+  const drawer = document.getElementById('mobileDrawer');
+  const overlay = document.getElementById('drawerOverlay');
+  const links = document.querySelectorAll('.drawer-link');
+  function close() {
+    btn.classList.remove('active');
+    drawer.classList.remove('open');
+    overlay.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+  function open() {
+    btn.classList.add('active');
+    drawer.classList.add('open');
+    overlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+  btn.addEventListener('click', () => {
+    drawer.classList.contains('open') ? close() : open();
+  });
+  overlay.addEventListener('click', close);
+  links.forEach(l => l.addEventListener('click', close));
+})();
+
+/* ================================ */
+/* === SCROLL REVEAL (IO) ========= */
+/* ================================ */
+(function scrollReveal() {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+})();
+
+/* ================================ */
+/* === 3D CARD TILT (DESKTOP) ===== */
+/* ================================ */
+(function cardTilt() {
+  if (isTouchDevice) {
+    // Touch: scale effect
+    document.querySelectorAll('.product-card').forEach(card => {
+      card.addEventListener('touchstart', () => {
+        card.style.transform = 'scale(1.03)';
+        card.style.boxShadow = 'var(--shadow-lg)';
+      }, { passive: true });
+      card.addEventListener('touchend', () => {
+        card.style.transform = '';
+        card.style.boxShadow = '';
+      }, { passive: true });
+    });
+    return;
+  }
+  // Desktop: 3D tilt
+  document.querySelectorAll('[data-card-tilt]').forEach(inner => {
+    const card = inner.closest('.product-card');
+    
+    // Setup glare element dynamically
+    const glare = document.createElement('div');
+    glare.className = 'pc-glare';
+    inner.appendChild(glare);
+
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width;
+      const y = (e.clientY - rect.top) / rect.height;
+      const xp = x - 0.5;
+      const yp = y - 0.5;
+      inner.style.transform = `perspective(1000px) rotateY(${xp * 15}deg) rotateX(${-yp * 15}deg) translateZ(10px)`;
+      glare.style.background = `radial-gradient(circle at ${x * 100}% ${y * 100}%, rgba(255,255,255,0.4) 0%, transparent 60%)`;
+    });
+    card.addEventListener('mouseleave', () => {
+      inner.style.transform = '';
+      glare.style.background = `radial-gradient(circle at 50% 50%, rgba(255,255,255,0.4) 0%, transparent 60%)`;
+    });
+  });
+})();
+
+/* ================================ */
+/* === TESTIMONIALS CAROUSEL ====== */
+/* ================================ */
+(function testiCarousel() {
+  const track = document.getElementById('testiTrack');
+  const prevBtn = document.getElementById('testiPrev');
+  const nextBtn = document.getElementById('testiNext');
+  let pos = 0;
+  let autoInterval;
+
+  function getCardWidth() {
+    const card = track.children[0];
+    if (!card) return 300;
+    const style = window.getComputedStyle(track);
+    const gap = parseInt(style.gap) || 20;
+    return card.offsetWidth + gap;
+  }
+  function getMaxPos() {
+    const cardW = getCardWidth();
+    const visibleW = track.parentElement.offsetWidth;
+    return Math.max(0, track.children.length - Math.floor(visibleW / cardW));
+  }
+  function slide(dir) {
+    const max = getMaxPos();
+    pos = Math.max(0, Math.min(pos + dir, max));
+    track.style.transform = `translateX(-${pos * getCardWidth()}px)`;
+  }
+  prevBtn.addEventListener('click', () => { slide(-1); resetAuto(); });
+  nextBtn.addEventListener('click', () => { slide(1); resetAuto(); });
+
+  // Auto-scroll on desktop
+  function startAuto() {
+    autoInterval = setInterval(() => {
+      if (pos >= getMaxPos()) pos = -1;
+      slide(1);
+    }, 4000);
+  }
+  function resetAuto() { clearInterval(autoInterval); startAuto(); }
+  if (!isTouchDevice) startAuto();
+
+  // Touch swipe
+  let touchStartX = 0;
+  let touchStartY = 0;
+  track.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; touchStartY = e.touches[0].clientY; }, { passive: true });
+  track.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    const dy = e.changedTouches[0].clientY - touchStartY;
+    if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 40) {
+      slide(dx < 0 ? 1 : -1);
+    }
+  }, { passive: true });
+})();
+
+/* ================================ */
+/* === THREE.JS HERO 3D SCENE ===== */
+/* ================================ */
+(function heroThreeJS() {
+  const canvas = document.getElementById('hero-canvas');
+  if (!canvas || typeof THREE === 'undefined') return;
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 100);
+  camera.position.z = 5;
+
+  const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+  renderer.setClearColor(0x000000, 0);
+
+  // Lighting
+  const ambientLight = new THREE.AmbientLight(0xE8A020, 0.4);
+  scene.add(ambientLight);
+  const dirLight = new THREE.DirectionalLight(0xFFF5E0, 0.6);
+  dirLight.position.set(3, 5, 4);
+  scene.add(dirLight);
+  const greenLight = new THREE.PointLight(0x2D5016, 0.3, 20);
+  greenLight.position.set(-4, 2, 3);
+  scene.add(greenLight);
+
+  // Responsive particle count
+  const w = window.innerWidth;
+  const particleCount = w > 1199 ? 200 : w > 767 ? 100 : 60;
+
+  // Toroidal knots (turmeric shapes)
+  const knotGeo = new THREE.TorusKnotGeometry(0.4, 0.15, 64, 16, 2, 3);
+  const knotMat = new THREE.MeshStandardMaterial({
+    color: 0xE8A020,
+    roughness: 0.6,
+    metalness: 0.2,
+    transparent: true,
+    opacity: 0.35
+  });
+
+  const knots = [];
+  for (let i = 0; i < (w > 767 ? 3 : 1); i++) {
+    const knot = new THREE.Mesh(knotGeo, knotMat.clone());
+    knot.position.set(
+      (Math.random() - 0.5) * 8,
+      (Math.random() - 0.5) * 5,
+      (Math.random() - 0.5) * 3 - 2
+    );
+    knot.scale.setScalar(0.5 + Math.random() * 0.6);
+    knot.userData = {
+      rotSpeed: { x: 0.003 + Math.random() * 0.005, y: 0.004 + Math.random() * 0.005 },
+      floatSpeed: 0.5 + Math.random() * 0.5,
+      floatAmp: 0.3 + Math.random() * 0.3,
+      origY: knot.position.y
+    };
+    scene.add(knot);
+    knots.push(knot);
+  }
+
+  // Leaf planes
+  const leafGeo = new THREE.PlaneGeometry(0.8, 0.5, 4, 4);
+  const leafMat = new THREE.MeshStandardMaterial({
+    color: 0x2D5016,
+    roughness: 0.8,
+    transparent: true,
+    opacity: 0.2,
+    side: THREE.DoubleSide
+  });
+  const leaves = [];
+  for (let i = 0; i < (w > 767 ? 4 : 2); i++) {
+    const leaf = new THREE.Mesh(leafGeo, leafMat.clone());
+    leaf.position.set(
+      (Math.random() - 0.5) * 10,
+      (Math.random() - 0.5) * 6,
+      (Math.random() - 0.5) * 4 - 1
+    );
+    leaf.rotation.set(Math.random() * Math.PI, Math.random() * Math.PI, 0);
+    leaf.userData = {
+      rotSpeed: 0.002 + Math.random() * 0.003,
+      floatSpeed: 0.3 + Math.random() * 0.5,
+      floatAmp: 0.2 + Math.random() * 0.3,
+      origY: leaf.position.y
+    };
+    scene.add(leaf);
+    leaves.push(leaf);
+  }
+
+  // Golden particles
+  const pGeo = new THREE.BufferGeometry();
+  const pPositions = new Float32Array(particleCount * 3);
+  const pVelocities = new Float32Array(particleCount);
+  for (let i = 0; i < particleCount; i++) {
+    pPositions[i * 3] = (Math.random() - 0.5) * 14;
+    pPositions[i * 3 + 1] = (Math.random() - 0.5) * 10;
+    pPositions[i * 3 + 2] = (Math.random() - 0.5) * 8 - 2;
+    pVelocities[i] = 0.005 + Math.random() * 0.015;
+  }
+  pGeo.setAttribute('position', new THREE.BufferAttribute(pPositions, 3));
+  const pMat = new THREE.PointsMaterial({
+    color: 0xE8A020,
+    size: w > 767 ? 0.04 : 0.03,
+    transparent: true,
+    opacity: 0.6,
+    sizeAttenuation: true
+  });
+  const particles = new THREE.Points(pGeo, pMat);
+  scene.add(particles);
+
+  // Mouse parallax
+  let mouseX = 0, mouseY = 0;
+  if (!isTouchDevice) {
+    document.addEventListener('mousemove', e => {
+      mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
+      mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
+    }, { passive: true });
+  }
+
+  // Animation loop
+  let time = 0;
+  function animate() {
+    requestAnimationFrame(animate);
+    time += 0.016;
+
+    // Rotate and float knots
+    knots.forEach(k => {
+      k.rotation.x += k.userData.rotSpeed.x;
+      k.rotation.y += k.userData.rotSpeed.y;
+      k.position.y = k.userData.origY + Math.sin(time * k.userData.floatSpeed) * k.userData.floatAmp;
+    });
+
+    // Float leaves
+    leaves.forEach(l => {
+      l.rotation.z += l.userData.rotSpeed;
+      l.position.y = l.userData.origY + Math.sin(time * l.userData.floatSpeed) * l.userData.floatAmp;
+    });
+
+    // Particle drift upward & cursor attraction
+    const pos = particles.geometry.attributes.position.array;
+    for (let i = 0; i < particleCount; i++) {
+      let px = pos[i * 3];
+      let py = pos[i * 3 + 1];
+      
+      if (!isTouchDevice) {
+        let targetX = mouseX * 8;
+        let targetY = -mouseY * 5;
+        let dx = targetX - px;
+        let dy = targetY - py;
+        let distSq = dx*dx + dy*dy;
+        
+        // Attract close particles to cursor
+        if (distSq < 12) {
+          pos[i * 3] += dx * 0.015;
+          pos[i * 3 + 1] += dy * 0.015;
+        } else {
+          pos[i * 3 + 1] += pVelocities[i];
+        }
+      } else {
+        pos[i * 3 + 1] += pVelocities[i];
+      }
+
+      if (pos[i * 3 + 1] > 6) {
+        pos[i * 3 + 1] = -6;
+        pos[i * 3] = (Math.random() - 0.5) * 14;
+      }
+    }
+    particles.geometry.attributes.position.needsUpdate = true;
+
+    // Mouse parallax
+    camera.position.x += (mouseX * 0.3 - camera.position.x) * 0.05;
+    camera.position.y += (-mouseY * 0.2 - camera.position.y) * 0.05;
+    camera.lookAt(0, 0, 0);
+
+    renderer.render(scene, camera);
+  }
+  animate();
+
+  // Debounced resize
+  let resizeTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+    }, 200);
+  });
+})();
+
+/* ================================ */
+/* === CUSTOM CURSOR & DUST ======= */
+/* ================================ */
+(function customCursor() {
+  if (isTouchDevice) return;
+  const cursor = document.createElement('div');
+  cursor.className = 'custom-cursor';
+  document.body.appendChild(cursor);
+
+  let mouseX = window.innerWidth / 2;
+  let mouseY = window.innerHeight / 2;
+  let cursorX = mouseX;
+  let cursorY = mouseY;
+  let lastDustTime = 0;
+
+  document.addEventListener('mousemove', e => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+
+    // Throttled golden dust — max 1 particle per 40ms, 15% spawn chance
+    const now = performance.now();
+    if (now - lastDustTime > 40 && Math.random() > 0.85) {
+      lastDustTime = now;
+      const dust = document.createElement('div');
+      dust.className = 'cursor-dust';
+      dust.style.left = mouseX + 'px';
+      dust.style.top = mouseY + 'px';
+      document.body.appendChild(dust);
+
+      const angle = Math.random() * Math.PI * 2;
+      const dist = 12 + Math.random() * 18;
+      const tx = Math.cos(angle) * dist;
+      const ty = Math.sin(angle) * dist + 16;
+
+      dust.animate([
+        { transform: 'translate(-50%, -50%) scale(1)', opacity: 0.7 },
+        { transform: `translate(calc(-50% + ${tx}px), calc(-50% + ${ty}px)) scale(0)`, opacity: 0 }
+      ], { duration: 600 + Math.random() * 300, easing: 'cubic-bezier(0, 0.9, 0.57, 1)' })
+      .onfinish = () => dust.remove();
+    }
+  }, { passive: true });
+
+  // Fast cursor follow — 0.28 lerp snaps quickly without feeling rigid
+  function renderCursor() {
+    cursorX += (mouseX - cursorX) * 0.28;
+    cursorY += (mouseY - cursorY) * 0.28;
+    cursor.style.transform = `translate(calc(-50% + ${cursorX}px), calc(-50% + ${cursorY}px))`;
+    requestAnimationFrame(renderCursor);
+  }
+  requestAnimationFrame(renderCursor);
+
+  // Hover states
+  document.querySelectorAll('a, button, .product-card').forEach(el => {
+    el.addEventListener('mouseenter', () => cursor.classList.add('hovering'));
+    el.addEventListener('mouseleave', () => cursor.classList.remove('hovering'));
+  });
+})();
+
+/* ================================ */
+/* === SCROLL PARALLAX HERO ======= */
+/* ================================ */
+(function heroParallax() {
+  if (isTouchDevice) return;
+  const heroLeft = document.querySelector('.hero-left');
+  const mainImg = document.querySelector('.hero-product-frame');
+  const pills = document.querySelectorAll('.hero-pill');
+  
+  window.addEventListener('scroll', () => {
+    const scrolled = window.scrollY;
+    if (scrolled > window.innerHeight) return;
+    
+    if (heroLeft) {
+      heroLeft.style.transform = `translateY(${scrolled * 0.35}px)`;
+      heroLeft.style.opacity = 1 - (scrolled / (window.innerHeight * 0.6));
+    }
+    if (mainImg) {
+      mainImg.style.transform = `translateY(${scrolled * 0.15}px)`;
+    }
+    pills.forEach((pill, idx) => {
+      let speed = -0.1 + (idx * 0.12);
+      pill.style.transform = `translateY(${scrolled * speed}px)`;
+    });
+  }, { passive: true });
+})();
+
+</script>
+
+<!-- ================= EXPERIENTIAL UPGRADES ================= -->
+<style>
+  /* Audio Toggle Button */
+  #audio-toggle {
+    position: fixed;
+    bottom: 20px; right: 20px;
+    width: 44px; height: 44px;
+    background: rgba(253, 246, 236, 0.8);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(232, 160, 32, 0.3);
+    border-radius: 50%;
+    z-index: 10001;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    transition: transform 0.3s;
+  }
+  #audio-toggle:hover { transform: scale(1.1); }
+  #audio-toggle svg { width: 20px; height: 20px; fill: #6B3A2A; }
+  .magnetic-active { transition: none !important; }
+</style>
+
+<div id="audio-toggle" title="Toggle Ambient Audio">
+  <svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+</div>
+
+<script>
+(function experientialUpgrades() {
+  // A. Lazy Loading Setup
+  const lazyImages = document.querySelectorAll('img.lazy-base64');
+  const imgObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting) {
+        const img = entry.target;
+        if(img.dataset.src) {
+           img.src = img.dataset.src;
+           img.style.opacity = 0;
+           img.onload = () => { img.style.transition = 'opacity 0.5s'; img.style.opacity = 1; };
+           observer.unobserve(img);
+        }
+      }
+    });
+  }, { rootMargin: '200px 0px' });
+  lazyImages.forEach(img => imgObserver.observe(img));
+
+  // B. Magnetic Buttons
+  if(!('ontouchstart' in window)) {
+    const magnets = document.querySelectorAll('.nav-cta, .hero-btn-primary');
+    magnets.forEach(btn => {
+      btn.addEventListener('mousemove', (e) => {
+        const rect = btn.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+        btn.classList.add('magnetic-active');
+        btn.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
+      });
+      btn.addEventListener('mouseleave', () => {
+        btn.classList.remove('magnetic-active');
+        btn.style.transform = 'translate(0px, 0px)';
+      });
+    });
+  }
+
+  // C. Audio Implementation
+  const audioToggle = document.getElementById('audio-toggle');
+  // External ambient CC0 sound (birds / wind)
+  const audio = new Audio('https://cdn.pixabay.com/download/audio/2021/08/04/audio_32c86bdccb.mp3?filename=forest-wind-and-birds-6881.mp3');
+  audio.loop = true;
+  audio.volume = 0.2;
+  let isPlaying = false;
+  
+  audioToggle.addEventListener('click', () => {
+    if(isPlaying) {
+      audio.pause();
+      audioToggle.style.background = 'rgba(253, 246, 236, 0.8)';
+    } else {
+      audio.play().catch(e => console.log('Audio playback prevented', e));
+      audioToggle.style.background = 'rgba(232, 160, 32, 0.8)';
+    }
+    isPlaying = !isPlaying;
+  });
+
+  // D. Prefers-Reduced-Motion Intercept
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if(reduceMotion) {
+    if(typeof THREE !== 'undefined' && document.getElementById('hero-canvas')) {
+      document.getElementById('hero-canvas').style.display = 'none'; // Safely disable complex 3D rendering
+    }
+    document.querySelectorAll('.reveal').forEach(el => el.style.transition = 'opacity 0.2s');
+  }
+})();
+</script>
+<!-- ========================================================= -->
+</body>
+</html>
